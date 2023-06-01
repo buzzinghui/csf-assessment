@@ -12,36 +12,36 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class AppConfig {
 
-	@Value("${redis.host}")
-	private String redisHost;
+	// @Value("${redis.host}")
+	// private String redisHost;
 
-	@Value("${redis.port}")
-	private Integer redisPort;
+	// @Value("${redis.port}")
+	// private Integer redisPort;
 
-	@Value("${redis.database}")
-	private Integer redisDB;
+	// @Value("${redis.database}")
+	// private Integer redisDB;
 
-	// Warning: Do not modify the createTemplate() method; either its method signature 
-	// or its logic. Changing any of these will render any of your assessment task using
-	// this RedisTemplate INVALID
-	@Bean("pending-orders")
-	public RedisTemplate<String, String> createRedisTemplate() {
-		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisHost, redisPort);
-		config.setDatabase(redisDB);
+	// // Warning: Do not modify the createTemplate() method; either its method signature 
+	// // or its logic. Changing any of these will render any of your assessment task using
+	// // this RedisTemplate INVALID
+	// @Bean("pending-orders")
+	// public RedisTemplate<String, String> createRedisTemplate() {
+	// 	RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisHost, redisPort);
+	// 	config.setDatabase(redisDB);
 
-		JedisClientConfiguration jedisClient = JedisClientConfiguration
-				.builder().build();
-		JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
-		jedisFac.afterPropertiesSet();
+	// 	JedisClientConfiguration jedisClient = JedisClientConfiguration
+	// 			.builder().build();
+	// 	JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
+	// 	jedisFac.afterPropertiesSet();
 
-		RedisTemplate<String, String> template = new RedisTemplate<>();
-		template.setConnectionFactory(jedisFac);
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(new StringRedisSerializer());
-		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new StringRedisSerializer());
+	// 	RedisTemplate<String, String> template = new RedisTemplate<>();
+	// 	template.setConnectionFactory(jedisFac);
+	// 	template.setKeySerializer(new StringRedisSerializer());
+	// 	template.setValueSerializer(new StringRedisSerializer());
+	// 	template.setHashKeySerializer(new StringRedisSerializer());
+	// 	template.setHashValueSerializer(new StringRedisSerializer());
 
-		return template;
-	}
+	// 	return template;
+	// }
 
 }

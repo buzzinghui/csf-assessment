@@ -1,0 +1,25 @@
+<!--
+  WARNING: Do not the structure of the HTML. You are only allowed to to add Angular directives
+-->
+
+<p>Orders for fred@gmail.com</p>
+<div class="box-it">
+  <form>
+    <table>
+      <tr>
+        <td> <label for="date">Date:</label> </td>
+        <td>
+        </td>
+      <tr>
+        <td> <label for="order_id">Order Id:</label> <button (click)="delivery()">Delivered</button></td>
+      </tr>
+      <tr>
+        <td> <label for="amount">Amount:</label> </td>
+        <td type="range" id="amount" min="0" max="3" value="0"
+        (change)="amount()">
+        </td>
+      </tr>
+    </table>
+  </form>
+  <button (click)="order()">Back to Ordering</button>
+</div>
