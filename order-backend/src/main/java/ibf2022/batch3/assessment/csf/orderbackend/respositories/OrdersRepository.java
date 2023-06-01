@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -50,8 +51,10 @@ public class OrdersRepository {
 	// Write the native MongoDB query in the comment below
 	//   Native MongoDB query here for getPendingOrdersByEmail()
 	public List<PizzaOrder> getPendingOrdersByEmail(String email) {
-
-		return null;
+		//implement mongo query
+		Query query = new Query(Criteria.where("email").is(email).and("status").is("pending"));
+        return mongoTemplate.find(query, PizzaOrder.class);
+		//return null;
 	}
 
 	// TODO: Task 7
@@ -59,7 +62,10 @@ public class OrdersRepository {
 	// Write the native MongoDB query in the comment below
 	//   Native MongoDB query here for markOrderDelivered()
 	public boolean markOrderDelivered(String orderId) {
-
+		Query query = new Query(Criteria.where("_id").is(orderId).and("status").is("pending"));
+        Update update = new Update().set("status", "delivered");
+        FindAndModifyOptions options = new FindAndModifyOptions().returnNew(true);
+		
 		return false;
 	}
 

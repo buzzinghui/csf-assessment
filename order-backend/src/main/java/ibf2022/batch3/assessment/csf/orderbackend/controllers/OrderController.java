@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import ibf2022.batch3.assessment.csf.orderbackend.models.PizzaOrder;
+import ibf2022.batch3.assessment.csf.orderbackend.services.OrderException;
+import ibf2022.batch3.assessment.csf.orderbackend.services.OrderingService;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
@@ -24,24 +29,26 @@ import jakarta.json.JsonObjectBuilder;
 //@RequestMapping(path = "/api")
 @CrossOrigin(origins = "*")
 public class OrderController {
+	OrderingService orderService;
 
 	// TODO: Task 3 - POST /api/order
 	@GetMapping(path = "/api/order")
-	public ResponseEntity<String> placeOrder(String query) {
-		JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-		objectBuilder.add("order", query);
-		JsonObject result = objectBuilder.build();
-		return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(result.toString()); 
+	public PizzaOrder placeOrder(PizzaOrder query) throws OrderException, JsonProcessingException {
+		// JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+		// objectBuilder.add("order", query);
+		// JsonObject result = objectBuilder.build();
+		return orderService.placeOrder(query); 
 
 	}
 
 
 
 	// TODO: Task 6 - GET /api/orders/<email>
-	//@RequestMapping(path = "/orders/<email>")
+	@GetMapping(path = "/apiorders/<email>")
+	public ResponseEntity<List<PizzaOrder>> getOrdersByEmail(String email) {
+		List<PizzaOrder> orders = orderService.getPendingOrdersByEmail(email);
+		return ResponseEntity.ok(orders);
+	}
 
 
 	// TODO: Task 7 - DELETE /api/order/<orderId>
