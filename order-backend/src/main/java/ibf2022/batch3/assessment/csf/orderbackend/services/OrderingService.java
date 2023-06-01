@@ -8,6 +8,9 @@ import ibf2022.batch3.assessment.csf.orderbackend.models.PizzaOrder;
 import ibf2022.batch3.assessment.csf.orderbackend.respositories.OrdersRepository;
 import ibf2022.batch3.assessment.csf.orderbackend.respositories.PendingOrdersRepository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class OrderingService {
 
 	@Autowired
@@ -18,7 +21,13 @@ public class OrderingService {
 	
 	// TODO: Task 5
 	// WARNING: DO NOT CHANGE THE METHOD'S SIGNATURE
-	public PizzaOrder placeOrder(PizzaOrder order) throws OrderException {
+	public PizzaOrder placeOrder(PizzaOrder order) throws OrderException, JsonProcessingException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		String jsonString = objectMapper.writeValueAsString(order);
+		
+		ordersRepo.add(jsonString);
 
 		return null;
 	}

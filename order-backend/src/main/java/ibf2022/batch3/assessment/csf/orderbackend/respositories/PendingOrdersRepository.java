@@ -12,7 +12,7 @@ public class PendingOrdersRepository {
 	MongoTemplate mongoTemplate;
 	// TODO: Task 3
 	// WARNING: Do not change the method's signature.
-	public void add(PizzaOrder order) {
+	public void add(String order) {
 		DBObject dbObject = BasicDBObject.parse(order);
 		mongoTemplate.insert(dbObject, "order");
 	}

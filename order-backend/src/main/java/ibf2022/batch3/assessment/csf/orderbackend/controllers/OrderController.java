@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +45,7 @@ public class OrderController {
 
 
 	// TODO: Task 6 - GET /api/orders/<email>
-	@GetMapping(path = "/apiorders/<email>")
+	@GetMapping(path = "/api/orders/<email>")
 	public ResponseEntity<List<PizzaOrder>> getOrdersByEmail(String email) {
 		List<PizzaOrder> orders = orderService.getPendingOrdersByEmail(email);
 		return ResponseEntity.ok(orders);
@@ -52,6 +53,15 @@ public class OrderController {
 
 
 	// TODO: Task 7 - DELETE /api/order/<orderId>
-	//@RequestMapping(path = "/order/<orderId>")
+	@DeleteMapping(path = "/api/order/<orderId>")
+	public ResponseEntity<String> deleteOrder(String orderId) {
+		boolean deleted = orderService.markOrderDelivered(orderId);
+		
+		if (deleted) {
+			return ResponseEntity.ok("Order deleted successfully");
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 }
